@@ -1,5 +1,7 @@
 import * as types from './actionTypes';
 import axios from 'axios';
+import {v4 as uuid} from 'uuid';
+
 
 export function loadUsersSuccess(users){
     return{
@@ -48,6 +50,18 @@ export function addUser(user){
     };
 }
 */
+export const updateUser =(id)=>async dispatch => {
+   
+    const response =await axios.patch(`https://jsonplaceholder.typicode.com/users/1,${id}`);
+    console.log(response);
+    dispatch({
+        type:types.UPDATE_USER_SUCCESS,
+        users:response})
+};
+
+
+
+
 
 export const addUser =(users)=>async dispatch => {
    
@@ -92,7 +106,7 @@ export const deleteUser =(id)=>async dispatch => {
 */
 export const deleteUser =(id)=>async dispatch => {
    
-    await axios.delete(`https://jsonplaceholder.typicode.com/users/${id}`);
+    await axios.delete(`https://jsonplaceholder.typicode.com/users/1,${id}`);
     
     dispatch({
         type:types.DELETE_USER_SUCCESS,id

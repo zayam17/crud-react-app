@@ -3,8 +3,11 @@ import React, { Component } from 'react';
 import {connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as userAction from '../actions/userAction';
-import UsersApi from '../data/UserApi';
 import UserForm from './UserForm';
+import {button} from 'react-bootstrap';
+import {BrowserRouter as Router,Switch,Route} from 'react-router-dom';
+
+
 
 
 var currentID=0;
@@ -22,8 +25,8 @@ class UserComponent extends Component {
     deleteUser(id,e){
         this.props.actions.deleteUser(id,e)
     }
-    updateUser(id){
-        this.props.actions.updateUser(id)
+    updateUser(id,e){
+        this.props.actions.updateUser(id,e)
     }
  
 
@@ -41,14 +44,16 @@ class UserComponent extends Component {
                   </tr>
                 </thead>
       
-                <tbody>
+                <tbody >
                   {this.props.users.map((user) => (
-                    <tr>
+                    <tr key={user.id}>
                       <td>{user.name}</td>
                       <td>{user.email}</td>
-                     
                       <td>
                         <button className="btn btn-danger" onClick={(e) =>this.deleteUser(user.id,e)}>Delete</button>
+                      </td>
+                      <td> 
+                      <button variant="info"  onClick={(e) =>this.updateUser(user.id,e)}>Update</button>
                       </td>
                     </tr>
                   ))}
